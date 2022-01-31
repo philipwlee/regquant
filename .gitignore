@@ -1,5 +1,6 @@
 .*
 !/.gitignore
-/common
+/common/__pycache__/
+/common/config.py
 *zack*
 
