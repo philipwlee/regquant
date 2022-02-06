@@ -86,36 +86,36 @@ def portstats_bm(v, bm, nper=12, logret=False):
     return ret, reg
 
 
-# THIS DOESNT WORK! NEED MULTIPLE REQUEST INSTANCES...
-async def quandl_zacks(db, dates, tickers, keys):
-    """Asynchronously Pulls Zacks Data
-    db: str of the format ZACKS/xx
-    dates: list<str> for period_end_date
-    tickers: list"""
+# # THIS DOESNT WORK! NEED MULTIPLE REQUEST INSTANCES...
+# async def quandl_zacks(db, dates, tickers, keys):
+#     """Asynchronously Pulls Zacks Data
+#     db: str of the format ZACKS/xx
+#     dates: list<str> for period_end_date
+#     tickers: list"""
     
-    async def pull_date(db, date, tickers, key):
-#         print(f"Concurrently sleeping {key}")
-#         await asyncio.sleep(3)
-#         print(f"Done sleeping {key}")
-        try:
-            print(f"Pulling {date}.")
-            # quandl.get_table still pulls the stuff sequentially somehow...
-            ret = quandl.get_table(db, per_end_date=date, ticker=tickers,
-                                   paginate=True, api_key=key)
-            return ret
-        except Exception as e:
-            print(e, "\nError with", date)
+#     async def pull_date(db, date, tickers, key):
+# #         print(f"Concurrently sleeping {key}")
+# #         await asyncio.sleep(3)
+# #         print(f"Done sleeping {key}")
+#         try:
+#             print(f"Pulling {date}.")
+#             # quandl.get_table still pulls the stuff sequentially somehow...
+#             ret = quandl.get_table(db, per_end_date=date, ticker=tickers,
+#                                    paginate=True, api_key=key)
+#             return ret
+#         except Exception as e:
+#             print(e, "\nError with", date)
     
-    n = len(keys)
-    tasks = [asyncio.ensure_future(pull_date(db, d, tickers, keys[i%n]))
-             for i, d in enumerate(dates)]
-    a = await asyncio.gather(*tasks)
+#     n = len(keys)
+#     tasks = [asyncio.ensure_future(pull_date(db, d, tickers, keys[i%n]))
+#              for i, d in enumerate(dates)]
+#     a = await asyncio.gather(*tasks)
         
-    return pd.concat(a, axis=0).sort_values(["per_end_date", "ticker"])
+#     return pd.concat(a, axis=0).sort_values(["per_end_date", "ticker"])
 
-start = time.time()
+# start = time.time()
 
-raw = await quandl_zacks("ZACKS/FC", dates=PER_END_DATES, tickers=list(un), keys=QUANDL_API_KEYS)
+# raw = await quandl_zacks("ZACKS/FC", dates=PER_END_DATES, tickers=list(un), keys=QUANDL_API_KEYS)
 
-el = time.time()-start
-print(f"{n} Dates Elapsed: {el:.3f}. Per Date {el/n:.3f}")
+# el = time.time()-start
+# print(f"{n} Dates Elapsed: {el:.3f}. Per Date {el/n:.3f}")
