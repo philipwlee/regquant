@@ -8,4 +8,7 @@ Philip Lee | Winter 2022
 
 # Summary
 
-1. Commodity Spreads
+1. Commodity Spread Characterization
+* asdf
+3. ETF Spreads
+4. 
